@@ -1,32 +1,35 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { PT_Sans, PT_Sans_Narrow, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const ptSans = PT_Sans({
+  weight: ["400", "700"],
   subsets: ["latin"],
+  variable: "--font-pt-sans",
+  display: "swap",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const ptSansNarrow = PT_Sans_Narrow({
+  weight: ["400", "700"],
   subsets: ["latin"],
+  variable: "--font-pt-sans-narrow",
+  display: "swap",
+});
+const playfair = Playfair_Display({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "DNews Console",
-  description: "Keyboard-first news ingestion explorer",
+  title: "Spanish Journal",
+  description: "Practice Spanish, one entry at a time.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${ptSans.variable} ${ptSansNarrow.variable} ${playfair.variable}`}>
         {children}
       </body>
     </html>
