@@ -226,9 +226,9 @@ export default function CalendarHeatmap() {
           </div>
         </div>
 
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 360px", gap:"var(--sp-4)", alignItems:"start" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"minmax(0,1fr) 360px", gap:"var(--sp-4)", alignItems:"start" }}>
           {/* Left: Year heatmap + month calendar */}
-          <div>
+          <div style={{ minWidth:0, overflow:"hidden" }}>
             {/* Year heatmap */}
             <div className="card" style={{ padding:"var(--sp-3)" }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"var(--sp-2)" }}>
