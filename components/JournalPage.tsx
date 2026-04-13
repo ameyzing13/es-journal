@@ -233,6 +233,11 @@ export default function JournalPage({ date }: { date: string }) {
     setEntries(prev => prev.map(e => e.id === updated.id ? updated : e));
   };
 
+  const deleteEntry = (id: string) => {
+    setEntries(prev => prev.filter(e => e.id !== id));
+    showToast("Entry deleted", "success");
+  };
+
   // ── Render ────────────────────────────────────────────────────────────
   const isProcessing = recordState === "transcribing" || recordState === "responding";
 
@@ -332,6 +337,7 @@ export default function JournalPage({ date }: { date: string }) {
                 personaName={persona.name}
                 onSelectPrompt={(text) => setActivePrompt(text)}
                 onUpdate={updateEntry}
+                onDelete={deleteEntry}
               />
             ))}
           </div>

@@ -607,9 +607,9 @@ textarea.input { resize: vertical; min-height: 80px; }
    CALENDAR / HEATMAP
 ───────────────────────────────────────────── */
 .heatmap-cell {
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
 }

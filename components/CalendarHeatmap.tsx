@@ -230,7 +230,7 @@ export default function CalendarHeatmap() {
           {/* Left: Year heatmap + month calendar */}
           <div style={{ minWidth:0, overflow:"hidden" }}>
             {/* Year heatmap */}
-            <div className="card" style={{ padding:"var(--sp-3)" }}>
+            <div className="card" style={{ padding:"14px 16px" }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"var(--sp-2)" }}>
                 <h2 style={{ margin:0, fontSize:"1rem", fontFamily:"var(--font-ui)", fontWeight:700 }}>Activity This Year</h2>
                 <div style={{ fontSize:"0.72rem", color:"var(--ghost)", fontFamily:"var(--font-data)", textTransform:"uppercase", letterSpacing:"0.07em" }}>
@@ -238,25 +238,25 @@ export default function CalendarHeatmap() {
                 </div>
               </div>
               {/* Month labels */}
-              <div style={{ display:"flex", gap:3, marginBottom:4, paddingLeft:2 }}>
+              <div style={{ display:"flex", gap:2, marginBottom:3, paddingLeft:1 }}>
                 {(() => {
                   const labels: string[] = [];
                   let lastMonth = -1;
-                  weeks.forEach((week, wi) => {
+                  weeks.forEach((week) => {
                     const month = new Date(week[0] + "T12:00:00").getMonth();
                     if (month !== lastMonth) { labels.push(MONTHS[month]); lastMonth = month; }
                     else labels.push("");
                   });
                   return labels.map((l, i) => (
-                    <div key={i} style={{ width:14, fontSize:"0.6rem", color:"var(--ghost)", fontFamily:"var(--font-data)", letterSpacing:"0.04em" }}>
+                    <div key={i} style={{ width:10, fontSize:"0.55rem", color:"var(--ghost)", fontFamily:"var(--font-data)", letterSpacing:"0.03em", overflow:"hidden" }}>
                       {l}
                     </div>
                   ));
                 })()}
               </div>
-              <div style={{ display:"flex", gap:3, overflowX:"auto" }}>
+              <div style={{ display:"flex", gap:2 }}>
                 {weeks.map((week, wi) => (
-                  <div key={wi} style={{ display:"flex", flexDirection:"column", gap:3 }}>
+                  <div key={wi} style={{ display:"flex", flexDirection:"column", gap:2 }}>
                     {week.map((day, di) => (
                       <div
                         key={di}

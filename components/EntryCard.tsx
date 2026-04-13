@@ -14,11 +14,13 @@ interface Props {
   personaName: string;
   onSelectPrompt: (text: string) => void;
   onUpdate: (updated: JournalEntry) => void;
+  onDelete: (id: string) => void;
 }
 
-export default function EntryCard({ entry, index, personaAccentColor, personaEmoji, personaName, onSelectPrompt, onUpdate }: Props) {
-  const [expanded, setExpanded] = useState(true);
-  const [starred, setStarred]   = useState(entry.is_starred);
+export default function EntryCard({ entry, index, personaAccentColor, personaEmoji, personaName, onSelectPrompt, onUpdate, onDelete }: Props) {
+  const [expanded, setExpanded]       = useState(true);
+  const [starred, setStarred]         = useState(entry.is_starred);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const time = new Date(entry.created_at).toLocaleTimeString("en-US", { hour:"2-digit", minute:"2-digit" });
 
@@ -30,6 +32,11 @@ export default function EntryCard({ entry, index, personaAccentColor, personaEmo
       headers:{"Content-Type":"application/json"},
       body: JSON.stringify({ is_starred: !starred }),
     });
+  };
+
+  const handleDelete = async () => {
+    await fetch(`/api/journal/entry/${entry.id}`, { method:"DELETE" });
+    onDelete(entry.id);
   };
 
   return (
@@ -81,6 +88,35 @@ export default function EntryCard({ entry, index, personaAccentColor, personaEmo
           >
             {starred ? "⭐" : "☆"}
           </button>
+          {/* Delete button */}
+          {confirmDelete ? (
+            <div style={{ display:"flex", alignItems:"center", gap:4 }}>
+              <span style={{ fontSize:"0.72rem", color:"var(--coral)", fontFamily:"var(--font-data)", fontWeight:700 }}>Delete?</span>
+              <button
+                className="btn"
+                style={{ padding:"3px 8px", fontSize:"0.72rem", background:"var(--coral)", color:"#fff", border:"none", borderRadius:"var(--r-sm)" }}
+                onClick={handleDelete}
+              >Yes</button>
+              <button
+                className="btn btn-ghost"
+                style={{ padding:"3px 8px", fontSize:"0.72rem" }}
+                onClick={() => setConfirmDelete(false)}
+              >No</button>
+            </div>
+          ) : (
+            <button
+              style={{ background:"none", border:"none", cursor:"pointer", lineHeight:1, transition:"opacity 0.15s", opacity:0.45, padding:"2px 4px" }}
+              onClick={() => setConfirmDelete(true)}
+              title="Delete entry"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width:15, height:15, color:"var(--slate)" }}>
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                <path d="M10 11v6M14 11v6"/>
+                <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+              </svg>
+            </button>
+          )}
           <button
             className="btn btn-ghost"
             style={{ padding:"4px 10px", fontSize:"0.78rem" }}
